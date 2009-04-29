@@ -1,20 +1,21 @@
-#
-# Cookbook Name:: mysql
-# Recipe:: default
-#
-# Copyright 2008, OpsCode, Inc.
-#
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-#     http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
-#
+package "mysql-server-5.0"
 
-include_recipe "mysql::client"
+template "/etc/mysql/conf.d/skip-networking" do
+  owner "root"
+  group "root"
+  mode  0644
+  source "skip-networking.cnf.erb"
+end
+
+bash "set_root_password" do
+  pass = generate_password(10)
+  pass_file = '/etc/mysql/.r'
+  cmds = []
+  cmds << %(mysql -u root -e "SET PASSWORD FOR 'root'@'#{node[:hostname]}' = PASSWORD('#{pass}');
+              SET PASSWORD FOR 'root'@'localhost' = PASSWORD('#{pass}');")
+  cmds << "echo '#{pass}' > #{pass_file}"
+  cmds << "chmod 400 #{pass_file}"
+
+  code cmds.join(' && ')
+  not_if { File.exists?(pass_file) }
+end

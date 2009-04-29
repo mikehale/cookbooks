@@ -1,34 +1,6 @@
-#
-# Cookbook Name:: passenger
-# Recipe:: default
-#
-# Author:: Joshua Timberman (<joshua@opscode.com>)
-# Author:: Joshua Sierles (<joshua@37signals.com>)
-# Author:: Michael Hale (<mikehale@gmail.com>)
-# 
-# Copyright:: 2009, Opscode, Inc
-# Copyright:: 2009, 37signals
-# Coprighty:: 2009, Michael Hale
-# 
-# Licensed under the Apache License, Version 2.0 (the "License");
-# you may not use this file except in compliance with the License.
-# You may obtain a copy of the License at
-# 
-#     http://www.apache.org/licenses/LICENSE-2.0
-# 
-# Unless required by applicable law or agreed to in writing, software
-# distributed under the License is distributed on an "AS IS" BASIS,
-# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-# See the License for the specific language governing permissions and
-# limitations under the License.
+include_recipe "base"
 
-include_recipe "ruby"
-
-%w{ apache2-prefork-dev libapr1-dev }.each do |pkg|
-  package pkg do
-    action :upgrade
-  end
-end
+package "apache2-threaded-dev"
 
 gem_package "passenger" do
   version node[:passenger][:version]
@@ -37,4 +9,56 @@ end
 execute "passenger_module" do
   command 'echo -en "\n\n\n\n" | passenger-install-apache2-module'
   creates node[:passenger][:module_path]
+end
+
+template node[:passenger][:apache_load_path] do
+  source "passenger.load.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  notifies :reload, resources(:service => "apache2")
+end
+
+template node[:passenger][:apache_conf_path] do
+  source "passenger.conf.erb"
+  owner "root"
+  group "root"
+  mode 0755
+  notifies :reload, resources(:service => "apache2")
+end
+
+apache_module "passenger"
+
+apache_site "000-default" do
+  enable false
+end
+
+template "/usr/local/bin/apache_syslog" do
+  source 'apache_syslog.erb'
+  mode 0755
+  owner 'root'
+  group 'root'
+end
+
+if node[:applications]
+  node[:applications].each do |app, config|
+    template "/etc/apache2/sites-available/#{app}_#{config[:env]}" do
+      owner 'root'
+      group 'root'
+      mode 0644
+      source "application.vhost.erb"
+      variables({
+        :docroot => "/var/www/apps/#{app}/current/public",
+        :server_name => config[:server_name],
+        :max_pool_size => config[:max_pool_size] || 2,
+        :env => config[:env],
+        :aliases => config[:aliases],
+        :app => app
+      })
+      notifies :reload, resources(:service => "apache2")
+    end
+    apache_site "#{app}_#{config[:env]}" do
+      enable config[:enable]
+    end
+  end
 end

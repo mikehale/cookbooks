@@ -1,0 +1,12 @@
+set daemon 60
+set logfile syslog facility log_daemon
+set mailserver localhost
+set mail-format { 
+          from: monit@<%= @fqdn %> 
+       subject: [monit <%= @hostname %>] $EVENT $SERVICE 
+}
+set alert alerts@halethegeek.com on { timeout, nonexist } 
+set httpd port 9111 and use address localhost
+  allow localhost
+
+include /etc/monit/services/*

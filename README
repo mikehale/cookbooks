@@ -1,0 +1,21 @@
+To setup passenger under ruby enterprise edition add the following cookbooks to your chef-repo:
+ build-essential
+ apache2
+ ruby_enterprise_edition
+ passenger
+ rails_passenger
+
+Then configure your node(s) to use the rails_passenger recipe, and run chef-client or chef-solo and wala chef prepares you a tasty dish of apache+passenger+REE!
+
+Oh and these cookbooks have only been tested on ubuntu intrepid (8.10)
+
+I need to refactor some of these cookebooks like passenger and syslog-ng to be more loosley coupled.
+
+TODO
+
+* app specific monit definitions
+* configure sudo
+* add developer ssh keys
+* setup apps dir
+* setup app user
+* fix apache/rails syslog stuff
