@@ -19,7 +19,7 @@
 
 execute "apt-get-update" do
   guard_file = "/tmp/.apt-get-update"
-  update_interval_in_seconds = 60 * 60 * 24
+  update_interval_in_seconds = 60 * 60
   command "apt-get update && touch #{guard_file}"
 
   only_if { 
