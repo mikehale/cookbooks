@@ -17,9 +17,17 @@
 # limitations under the License.
 #
 
+# try to find the first apt_proxy server in our search index of available chef nodes
+results = search(:node, "recipe:apt-proxy::server")
+if results && !results.empty?
+  apt_proxy_server = results.first["fqdn"]
+else
+  Chef::Log.warn("Could not find any nodes with the apt-proxy::server recipe.")
+end
+
 template "/etc/apt/sources.list" do
   source "sources.list.erb"
-  variables :url => node[:apt_proxy][:server_url], :code_name => node[:lsb][:codename]
+  variables :server => apt_proxy_server, :code_name => node[:lsb][:codename]
   owner "root"
   group "root"
   mode "644"
