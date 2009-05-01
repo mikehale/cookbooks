@@ -18,7 +18,17 @@
 #
 
 execute "apt-get-update" do
-  command "apt-get update"
+  guard_file = "/tmp/.apt-get-update"
+  update_interval_in_seconds = 60 * 60 * 24
+  command "apt-get update && touch #{guard_file}"
+
+  only_if { 
+    if File.exists?(guard_file)
+      Time.now - File.mtime(guard_file) > update_interval_in_seconds
+    else
+      true
+    end
+  }
 end
 
 %w{/var/cache/local /var/cache/local/preseeding}.each do |dirname|
