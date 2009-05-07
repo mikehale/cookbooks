@@ -21,6 +21,26 @@ include_recipe "mysql::client"
 
 case node[:platform]
 when "debian","ubuntu"
+  def debian_cnf(key)
+    `cat /etc/mysql/debian.cnf|grep #{key}|uniq`.split(' = ').last.chomp
+  end
+
+  user = debian_cnf('user')
+  password = debian_cnf('password')
+
+  execute "remove mysql root users" do
+    command "mysql --user=#{user} --password='#{password}' -e \"delete from mysql.user where user='root';FLUSH PRIVILEGES;\""
+  end
+
+  template "/etc/mysql/conf.d/character_set_collation.cnf" do
+    source "character_set_collation.cnf.erb"
+    variables(:character_set => 'utf8', :collation => 'utf8_general_ci')
+    backup 0 #backups in conf.d would confuse mysql
+    mode 0644
+    owner "root"
+    group "root"
+    notifies :reload, resources(:service => "mysql")
+  end
 
   directory "/var/cache/local/preseeding" do
     owner "root"
