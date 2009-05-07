@@ -18,5 +18,6 @@ if node[:fully_qualified_domain_name]
 
   execute "set hostname" do
     command "/bin/hostname --file /etc/hostname"
+    only_if { `/bin/hostname`.chomp != node[:hostname] }
   end
 end
