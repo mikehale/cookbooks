@@ -25,11 +25,15 @@ when "debian","ubuntu"
     `cat /etc/mysql/debian.cnf|grep #{key}|uniq`.split(' = ').last.chomp
   end
 
-  user = debian_cnf('user')
-  password = debian_cnf('password')
+  def mysql(cmd)
+    user = debian_cnf('user')
+    password = debian_cnf('password')
+    %(mysql --user=#{user} --password='#{password}' -e "#{cmd}")
+  end
 
   execute "remove mysql root users" do
-    command "mysql --user=#{user} --password='#{password}' -e \"delete from mysql.user where user='root';FLUSH PRIVILEGES;\""
+    command mysql("delete from mysql.user where user='root';FLUSH PRIVILEGES;")
+    not_if { `#{mysql("select user from mysql.user where user='root';")} | wc -l`.chomp == "0" }
   end
 
   template "/etc/mysql/conf.d/character_set_collation.cnf" do
@@ -47,6 +51,7 @@ when "debian","ubuntu"
     group "root"
     mode  0644
     source "skip-networking.cnf.erb"
+    notifies :reload, resources(:service => "mysql")
     only_if { node[:mysql][:skip_networking] }
   end
 
