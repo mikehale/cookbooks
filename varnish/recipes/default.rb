@@ -36,6 +36,8 @@ end
 service "varnish" do
   supports :restart => true, :reload => true
   action [ :enable, :start ]
+  mode 0755
+  notifies :reload, resources(:service => "apache2")
 end
 
 service "varnishlog" do

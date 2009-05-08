@@ -4,6 +4,7 @@
 # Based on the Ubuntu apache2.conf
 
 ServerRoot "<%= @node[:apache][:dir] %>"
+ServerName <%= @node[:fqdn] %>
 
 #
 # The accept serialization lock file MUST BE STORED ON A LOCAL DISK.

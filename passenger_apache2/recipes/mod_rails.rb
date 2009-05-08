@@ -49,6 +49,7 @@ template "#{node[:apache][:dir]}/mods-available/passenger.conf" do
   owner "root"
   group "root"
   mode 0755
+  notifies :reload, resources(:service => "apache2")
 end
 
 apache_module "passenger"
