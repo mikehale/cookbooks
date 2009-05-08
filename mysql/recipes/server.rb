@@ -42,6 +42,14 @@ when "debian","ubuntu"
     notifies :reload, resources(:service => "mysql")
   end
 
+  template "/etc/mysql/conf.d/skip-networking" do
+    owner "root"
+    group "root"
+    mode  0644
+    source "skip-networking.cnf.erb"
+    only_if { node[:mysql][:skip_networking] }
+  end
+
   directory "/var/cache/local/preseeding" do
     owner "root"
     group "root"

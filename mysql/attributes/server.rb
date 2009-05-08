@@ -1,3 +1,4 @@
+<<<<<<< HEAD:mysql/attributes/server.rb
 #
 # Cookbook Name:: mysql
 # Attributes:: server
@@ -36,3 +37,7 @@ mysql[:tunable][:net_write_timeout]   = "30" unless mysql[:tunable].has_key?(:ne
 mysql[:tunable][:back_log]            = "128" unless mysql[:tunable].has_key?(:back_log)
 mysql[:tunable][:table_cache]         = "128" unless mysql[:tunable].has_key?(:table_cache)
 mysql[:tunable][:max_heap_table_size] = "32M" unless mysql[:tunable].has_key?(:max_heap_table_size)
+=======
+mysql Mash.new unless attribute?("mysql")
+mysql[:skip_networking] = false unless mysql.has_key?(:skip_networking)
+>>>>>>> add skip-networking support to mysql:mysql/attributes/server.rb
