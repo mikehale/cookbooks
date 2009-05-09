@@ -46,7 +46,7 @@ when "debian","ubuntu"
     notifies :reload, resources(:service => "mysql")
   end
 
-  template "/etc/mysql/conf.d/skip-networking" do
+  template "/etc/mysql/conf.d/skip-networking.cnf" do
     owner "root"
     group "root"
     mode  0644
