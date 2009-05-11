@@ -1,4 +1,3 @@
-<<<<<<< HEAD:mysql/attributes/server.rb
 #
 # Cookbook Name:: mysql
 # Attributes:: server
@@ -26,6 +25,9 @@ mysql[:server_root_password] = db_password unless mysql.has_key?(:server_root_pa
 mysql[:bind_address]         = ipaddress unless mysql.has_key?(:bind_address)
 mysql[:datadir]              = "/var/lib/mysql" unless mysql.has_key?(:datadir)
 mysql[:ec2_path] = "/mnt/mysql" unless mysql.has_key?(:ec2_path)
+mysql[:skip_networking] = false unless mysql.has_key?(:skip_networking)
+mysql[:character_set] = "utf8" unless mysql.has_key?(:character_set)
+mysql[:collation] = "utf8_general_ci" unless mysql.has_key?(:collation)
 
 # Tunables
 mysql[:tunable] = Mash.new unless mysql.has_key?(:tunable)
@@ -37,7 +39,3 @@ mysql[:tunable][:net_write_timeout]   = "30" unless mysql[:tunable].has_key?(:ne
 mysql[:tunable][:back_log]            = "128" unless mysql[:tunable].has_key?(:back_log)
 mysql[:tunable][:table_cache]         = "128" unless mysql[:tunable].has_key?(:table_cache)
 mysql[:tunable][:max_heap_table_size] = "32M" unless mysql[:tunable].has_key?(:max_heap_table_size)
-=======
-mysql Mash.new unless attribute?("mysql")
-mysql[:skip_networking] = false unless mysql.has_key?(:skip_networking)
->>>>>>> add skip-networking support to mysql:mysql/attributes/server.rb

@@ -31,14 +31,14 @@ when "debian","ubuntu"
     %(mysql --user=#{user} --password='#{password}' -e "#{cmd}")
   end
 
-  execute "remove mysql root users" do
-    command mysql("delete from mysql.user where user='root';FLUSH PRIVILEGES;")
-    not_if { `#{mysql("select user from mysql.user where user='root';")} | wc -l`.chomp == "0" }
+  execute "set-mysql-root-pass" do
+    command "/usr/bin/mysqladmin -u root password '#{node[:mysql][:root_password]}'"
+    not_if %(mysql --user=root --password='#{node[:mysql][:root_password]}' -e "select count(*) from mysql.user")
   end
 
   template "/etc/mysql/conf.d/character_set_collation.cnf" do
     source "character_set_collation.cnf.erb"
-    variables(:character_set => 'utf8', :collation => 'utf8_general_ci')
+    variables(:character_set => node[:mysql][:character_set], :collation => node[:mysql][:collation])
     backup 0 #backups in conf.d would confuse mysql
     mode 0644
     owner "root"
