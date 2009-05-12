@@ -6,6 +6,8 @@ define :mysql_create_database do
   execute("create database: #{params[:database]}") do
     mysql = "mysql --user=root --password='#{node[:mysql][:root_password]}'"
     command %(#{mysql} -e "#{create_statement}")
-    not_if %(#{mysql} -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '#{params[:database]}'")
+    only_if do
+      `#{mysql} -e "SELECT SCHEMA_NAME FROM INFORMATION_SCHEMA.SCHEMATA WHERE SCHEMA_NAME = '#{params[:database]}'" | wc -l`.chomp == "0"
+    end
   end
 end
