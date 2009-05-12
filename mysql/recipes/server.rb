@@ -39,7 +39,7 @@ when "debian","ubuntu"
   template "/etc/mysql/conf.d/character_set_collation.cnf" do
     source "character_set_collation.cnf.erb"
     variables(:character_set => node[:mysql][:character_set], :collation => node[:mysql][:collation])
-    backup 0 #backups in conf.d would confuse mysql
+    backup false #backups in conf.d would confuse mysql
     mode 0644
     owner "root"
     group "root"
