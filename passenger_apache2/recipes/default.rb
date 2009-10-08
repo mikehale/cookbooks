@@ -44,11 +44,9 @@ end
 
 gem_package "passenger" do
   version node[:passenger][:version]
-  gem_binary node[:languages][:ruby][:gem_bin]
 end
 
 execute "passenger_module" do
-  path = node[:languages][:ruby][:gem_bin].gsub("gem", "")
-  command %[echo -en "\n\n\n\n" | #{path}/passenger-install-apache2-module]
+  command 'echo -en "\n\n\n\n" | passenger-install-apache2-module'
   creates node[:passenger][:module_path]
 end
