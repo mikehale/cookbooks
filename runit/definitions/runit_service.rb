@@ -18,6 +18,8 @@
 #
 
 define :runit_service, :directory => nil, :only_if => false, :options => Hash.new do
+
+  include_recipe 'runit'
   
   params[:directory] ||= node[:runit][:sv_dir]
   
