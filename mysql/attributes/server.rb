@@ -24,9 +24,9 @@ set_unless[:mysql][:server_root_password] = secure_password
 set_unless[:mysql][:server_repl_password] = secure_password
 set_unless[:mysql][:bind_address]         = ipaddress
 set_unless[:mysql][:datadir]              = "/var/lib/mysql"
-set_unless[:skip_networking]              = false
-set_unless[:character_set]                = "utf8"
-set_unless[:collation]                    = "utf8_general_ci"
+set_unless[:mysql][:skip_networking]      = false
+set_unless[:mysql][:character_set]        = "utf8"
+set_unless[:mysql][:collation]            = "utf8_general_ci"
 
 if attribute?(:ec2)
   set_unless[:mysql][:ec2_path]    = "/mnt/mysql"
