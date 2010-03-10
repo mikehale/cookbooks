@@ -19,49 +19,8 @@
 
 include_recipe "mysql::client"
 
-service "mysql" do
-  service_name value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "mysqld"}, "default" => "mysql")
-  
-  supports :status => true, :restart => true, :reload => true
-  action :enable
-end
-
 case node[:platform]
 when "debian","ubuntu"
-  def debian_cnf(key)
-    `cat /etc/mysql/debian.cnf|grep #{key}|uniq`.split(' = ').last.chomp
-  end
-
-  def mysql(cmd)
-    user = debian_cnf('user')
-    password = debian_cnf('password')
-    %(mysql --user=#{user} --password='#{password}' -e "#{cmd}")
-  end
-
-  execute "set-mysql-root-pass" do
-    command "/usr/bin/mysqladmin -u root password '#{node[:mysql][:root_password]}'"
-    not_if %(mysql --user=root --password='#{node[:mysql][:root_password]}' -e "select count(*) from mysql.user")
-  end
-
-  template "/etc/mysql/conf.d/character_set_collation.cnf" do
-    source "character_set_collation.cnf.erb"
-    variables(:character_set => node[:mysql][:character_set], :collation => node[:mysql][:collation])
-    backup false #backups in conf.d would confuse mysql
-    mode 0644
-    owner "root"
-    group "root"
-    notifies :reload, resources(:service => "mysql")
-  end
-
-  template "/etc/mysql/conf.d/skip-networking.cnf" do
-    owner "root"
-    group "root"
-    mode  0644
-    source "skip-networking.cnf.erb"
-    notifies :reload, resources(:service => "mysql")
-    only_if { node[:mysql][:skip_networking] }
-  end
-
   directory "/var/cache/local/preseeding" do
     owner "root"
     group "root"
@@ -85,6 +44,36 @@ end
 
 package "mysql-server" do
   action :install
+end
+
+service "mysql" do
+  service_name value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "mysqld"}, "default" => "mysql")
+  
+  supports :status => true, :restart => true, :reload => true
+  action :enable
+end
+
+case node[:platform]
+when "debian","ubuntu"
+  template "/etc/mysql/conf.d/character_set_collation.cnf" do
+    source "character_set_collation.cnf.erb"
+    variables(:character_set => node[:mysql][:character_set], :collation => node[:mysql][:collation])
+    backup false #backups in conf.d would confuse mysql
+    mode 0644
+    owner "root"
+    group "root"
+    notifies :reload, resources(:service => "mysql")
+  end
+
+  template "/etc/mysql/conf.d/skip-networking.cnf" do
+    owner "root"
+    group "root"
+    backup false #backups in conf.d would confuse mysql
+    mode  0644
+    source "skip-networking.cnf.erb"
+    notifies :reload, resources(:service => "mysql")
+    only_if { node[:mysql][:skip_networking] }
+  end
 end
 
 template value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "/etc/my.cnf"}, "default" => "/etc/mysql/my.cnf") do
