@@ -16,6 +16,7 @@ smtp_sasl_password_maps = <%= @node[:postfix][:smtp_sasl_password_maps] %>
 smtp_sasl_security_options = <%= @node[:postfix][:smtp_sasl_security_options] %>
 smtp_tls_CAfile = <%= @node[:postfix][:smtp_tls_cafile] %>
 smtp_use_tls = <%= @node[:postfix][:smtp_use_tls] %>
+smtp_tls_security_level = <%= @node[:postfix][:smtp_tls_security_level] %>
 <% end -%>
 myhostname = <%= @node[:postfix][:myhostname] %>
 mydomain = <%= @node[:postfix][:mydomain] %>
@@ -23,7 +24,7 @@ myorigin = <%= @node[:postfix][:myorigin] %>
 smtpd_banner = $myhostname ESMTP $mail_name 
 alias_maps = hash:/etc/aliases
 alias_database = hash:/etc/aliases
-mydestination = <%= @node[:postfix][:myhostname] %>, <%= @node[:hostname] %>, localhost.localdomain, localhost
+mydestination = <%= @node[:postfix][:mydestination] %>
 <% if @node[:postfix][:mail_type] == "master" -%>
 relayhost = 
 mynetworks = <%= @node[:postfix][:mail_relay_networks] %>
@@ -35,3 +36,4 @@ inet_interfaces = loopback-only
 <% end -%>
 mailbox_size_limit = 0
 recipient_delimiter = +
+header_size_limit = <%= @node[:postfix][:header_size_limit] %>

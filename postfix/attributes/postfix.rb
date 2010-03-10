@@ -2,6 +2,7 @@ set_unless[:postfix][:mail_type]  = "client"
 set_unless[:postfix][:myhostname] = fqdn
 set_unless[:postfix][:mydomain]   = domain
 set_unless[:postfix][:myorigin]   = "$myhostname"
+set_unless[:postfix][:mydestination] = "#{node[:postfix][:myhostname]}, #{node[:hostname]}, localhost.localdomain, localhost"
 set_unless[:postfix][:relayhost]  = ""
 set_unless[:postfix][:mail_relay_networks] = "127.0.0.0/8"
 
@@ -12,3 +13,5 @@ set_unless[:postfix][:smtp_tls_cafile] = "/etc/postfix/cacert.pem"
 set_unless[:postfix][:smtp_use_tls]    = "yes"
 set_unless[:postfix][:smtp_sasl_user_name] = ""
 set_unless[:postfix][:smtp_sasl_passwd]    = ""
+set_unless[:postfix][:smtp_tls_security_level] = "may"
+set_unless[:postfix][:header_size_limit] = "4096000"
