@@ -1,40 +1,38 @@
 {
-  "description": "Installs but does not configure heartbeat",
-  "replacing": {
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "description": "Installs but does not configure heartbeat",
+    "groupings": {
+    },
+    "platforms": {
+      "ubuntu": [
 
-  },
-  "recipes": {
-    "heartbeat": ""
-  },
-  "platforms": {
+      ],
+      "debian": [
 
-  },
-  "maintainer": "Opscode, Inc.",
-  "version": "0.7.0",
-  "recommendations": {
+      ]
+    },
+    "version": "0.7.0",
+    "recommendations": {
+    },
+    "name": "heartbeat",
+    "maintainer": "Opscode, Inc.",
+    "long_description": "",
+    "recipes": {
+    },
+    "suggestions": {
+      "drbd": [
 
-  },
-  "name": "heartbeat",
-  "maintainer_email": "cookbooks@opscode.com",
-  "attributes": {
-
-  },
-  "suggestions": {
-    "drbd": [
-
-    ]
-  },
-  "license": "Apache 2.0",
-  "conflicting": {
-
-  },
-  "dependencies": {
-
-  },
-  "providing": {
-    "heartbeat": [
-
-    ]
-  },
-  "long_description": ""
-}
+      ]
+    },
+    "maintainer_email": "cookbooks@opscode.com",
+    "attributes": {
+    },
+    "conflicting": {
+    },
+    "license": "Apache 2.0",
+    "providing": {
+    }
+  }

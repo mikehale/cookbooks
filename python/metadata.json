@@ -1,38 +1,35 @@
 {
-  "description": "Installs python packages",
-  "replacing": {
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "description": "Installs python packages",
+    "groupings": {
+    },
+    "platforms": {
+      "ubuntu": [
 
-  },
-  "recipes": {
-    "python": ""
-  },
-  "platforms": {
+      ],
+      "debian": [
 
-  },
-  "maintainer": "Opscode, Inc.",
-  "version": "0.7.0",
-  "recommendations": {
-
-  },
-  "name": "python",
-  "maintainer_email": "cookbooks@opscode.com",
-  "attributes": {
-
-  },
-  "suggestions": {
-
-  },
-  "license": "Apache 2.0",
-  "conflicting": {
-
-  },
-  "dependencies": {
-
-  },
-  "providing": {
-    "python": [
-
-    ]
-  },
-  "long_description": ""
-}
+      ]
+    },
+    "version": "0.7.0",
+    "recommendations": {
+    },
+    "name": "python",
+    "maintainer": "Opscode, Inc.",
+    "long_description": "",
+    "recipes": {
+    },
+    "suggestions": {
+    },
+    "maintainer_email": "cookbooks@opscode.com",
+    "attributes": {
+    },
+    "conflicting": {
+    },
+    "license": "Apache 2.0",
+    "providing": {
+    }
+  }

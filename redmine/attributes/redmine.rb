@@ -15,19 +15,22 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 
-db_password = ""
-chars = ("a".."z").to_a + ("A".."Z").to_a + ("0".."9").to_a
-20.times { |i| db_password << chars[rand(chars.size-1)] }
+require 'openssl'
+
+pw = String.new
+
+while pw.length < 20
+  pw << OpenSSL::Random.random_bytes(1).gsub(/\W/, '')
+end
 
 #database_server = search(:node, "database_master:true").map {|n| n['fqdn']}.first
 
-redmine Mash.new unless attribute?("redmine")
-redmine[:dl_id]   = "56909" unless redmine.has_key?(:dl_id)
-redmine[:version] = "0.8.4" unless redmine.has_key?(:version)
-redmine[:dir]     = "/srv/redmine-#{redmine[:version]}"
+set[:redmine][:dir] = "/srv/redmine-#{redmine[:version]}"
 
-redmine[:db] = Mash.new unless redmine.has_key?(:db)
-redmine[:db][:type]     = "sqlite"        unless redmine[:db].has_key?(:type)
-redmine[:db][:user]     = "redmine"       unless redmine[:db].has_key?(:user)
-redmine[:db][:password] = db_password     unless redmine[:db].has_key?(:password)
-redmine[:db][:hostname] = "localhost"     unless redmine[:db].has_key?(:hostname)
+set_unless[:redmine][:dl_id]   = "56909"
+set_unless[:redmine][:version] = "0.8.4"
+
+set_unless[:redmine][:db][:type]     = "sqlite"
+set_unless[:redmine][:db][:user]     = "redmine"
+set_unless[:redmine][:db][:password] = pw
+set_unless[:redmine][:db][:hostname] = "localhost"
