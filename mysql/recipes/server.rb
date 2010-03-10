@@ -19,6 +19,13 @@
 
 include_recipe "mysql::client"
 
+service "mysql" do
+  service_name value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "mysqld"}, "default" => "mysql")
+  
+  supports :status => true, :restart => true, :reload => true
+  action :enable
+end
+
 case node[:platform]
 when "debian","ubuntu"
   def debian_cnf(key)
@@ -78,13 +85,6 @@ end
 
 package "mysql-server" do
   action :install
-end
-
-service "mysql" do
-  service_name value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "mysqld"}, "default" => "mysql")
-  
-  supports :status => true, :restart => true, :reload => true
-  action :enable
 end
 
 template value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "/etc/my.cnf"}, "default" => "/etc/mysql/my.cnf") do
