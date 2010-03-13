@@ -22,6 +22,7 @@ if chef_config.has_key?("attributes")
   json_attribs "/etc/chef/client-config.json"
 end
 
+recipe_url          chef_config.has_key['recipes_url']
 cookbook_path       ["<%= @node[:bootstrap][:chef][:cache_path] %>/site-cookbooks", "<%= @node[:bootstrap][:chef][:cache_path] %>/cookbooks"]
 file_cache_path     "<%= @node[:bootstrap][:chef][:cache_path] %>"
 pid_file            "<%= @node[:bootstrap][:chef][:run_path] %>/chef-solo.pid"
