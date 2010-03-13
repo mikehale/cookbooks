@@ -44,13 +44,14 @@ when "init"
     mode "755"
   end
 
+  # hack to keep runit from starting while bootstraping
+  include_recipe "runit"
+  execute do
+    command "start runsvdir"
+  end
+  
   service "chef-solo" do
     action :nothing
-  end
-
-  # make sure we don't start chef-solo service until ec2 boots an actual instance
-  file "#{node[:runit][:service_dir]}/chef-solo" do 
-    action :delete
   end
 
   Chef::Log.info("You specified service style 'init'.")
