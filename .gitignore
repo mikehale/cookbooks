@@ -1,2 +1,2 @@
-tmp/*
 .rake_test_cache
+*.tar.gz

@@ -36,11 +36,41 @@ task :build_bootstrap do
   end
 
   chdir(tmp_dir) do
-    sh %{tar zcvf bootstrap.tar.gz cookbooks}
+    sh %{tar zcvf ../bootstrap.tar.gz cookbooks}
   end
+  rm_rf tmp_dir
 end
 
 # remove unnecessary tasks
 %w{update install roles ssl_cert}.each do |t|
   Rake.application.instance_variable_get('@tasks').delete(t.to_s)
+end
+
+desc "Build a cookbooks.tar.gz containing all cookbooks"
+task :build_cookbooks_package do
+  cookbook_files = Rake::FileList.new
+  Dir['**'].each do |cookbook|
+    cookbook_files.include "#{cookbook}/**/*"
+  end
+
+  tmp_dir = "tmp"
+  cookbooks_dir = File.join(tmp_dir, "cookbooks")
+  rm_rf tmp_dir
+  mkdir_p cookbooks_dir
+  cookbook_files.each do |fn|
+    f = File.join(cookbooks_dir, fn)
+    fdir = File.dirname(f)
+    mkdir_p(fdir) if !File.exist?(fdir)
+    if File.directory?(fn)
+      mkdir_p(f)
+    else
+      rm_f f
+      safe_ln(fn, f)
+    end
+  end
+
+  chdir(tmp_dir) do
+    sh %{tar zcvf ../cookbooks.tar.gz cookbooks}
+  end
+  rm_rf tmp_dir
 end
