@@ -48,6 +48,11 @@ when "init"
     action :nothing
   end
 
+  # make sure we don't start chef-solo service until ec2 boots an actual instance
+  file "#{node[:runit][:service_dir]}/chef-solo" do 
+    action :delete
+  end
+
   Chef::Log.info("You specified service style 'init'.")
   Chef::Log.info("'init' scripts available in #{node[:languages][:ruby][:gems_dir]}/gems/chef-#{node[:bootstrap][:chef][:solo_version]}/distro")
 when "bsd"
