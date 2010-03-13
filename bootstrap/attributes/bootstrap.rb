@@ -33,17 +33,22 @@ set_unless[:bootstrap][:chef][:webui_admin_password] = secure_password
 set_unless[:bootstrap][:chef][:validation_client_name] = "chef-validator"
 
 set_unless[:bootstrap][:chef][:server_version]  = "0.8.6"
+set_unless[:bootstrap][:chef][:solo_version]  = "0.8.6"
 set_unless[:bootstrap][:chef][:client_version]  = "0.8.6"
 set_unless[:bootstrap][:chef][:client_interval] = "1800"
 set_unless[:bootstrap][:chef][:client_splay]    = "20"
+set_unless[:bootstrap][:chef][:solo_interval] = "1800"
+set_unless[:bootstrap][:chef][:solo_splay]    = "20"
 set_unless[:bootstrap][:chef][:log_dir]         = "/var/log/chef"
 
 case bootstrap[:chef][:init_style]
 when "runit"
+  set_unless[:bootstrap][:chef][:solo_log]  = "STDOUT"
   set_unless[:bootstrap][:chef][:client_log]  = "STDOUT"
   set_unless[:bootstrap][:chef][:server_log]  = "STDOUT"
   set_unless[:bootstrap][:chef][:indexer_log] = "STDOUT"
 else
+  set_unless[:bootstrap][:chef][:solo_log]  = "#{bootstrap[:chef][:log_dir]}/solo.log"
   set_unless[:bootstrap][:chef][:client_log]  = "#{bootstrap[:chef][:log_dir]}/client.log"
   set_unless[:bootstrap][:chef][:server_log]  = "#{bootstrap[:chef][:log_dir]}/server.log"
   set_unless[:bootstrap][:chef][:indexer_log] = "#{bootstrap[:chef][:log_dir]}/indexer.log"
