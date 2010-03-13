@@ -16,10 +16,10 @@ log_location     <%= @client_log %>
 node_name        o[:ec2][:instance_id]
 
 if chef_config.has_key?("attributes")
-  File.open("<%= @node[:bootstrap][:chef][:path] %>/client-config.json", "w") do |f|
+  File.open("/etc/chef/client-config.json", "w") do |f|
     f.print(JSON.pretty_generate(chef_config["attributes"]))
   end
-  json_attribs "<%= @node[:bootstrap][:chef][:path] %>/client-config.json"
+  json_attribs "/etc/chef/client-config.json"
 end
 
 cookbook_path       ["<%= @node[:bootstrap][:chef][:cache_path] %>/site-cookbooks", "<%= @node[:bootstrap][:chef][:cache_path] %>/cookbooks"]
