@@ -44,12 +44,6 @@ when "init"
     mode "755"
   end
 
-  # hack to keep runit from starting while bootstraping
-  include_recipe "runit"
-  execute do
-    command "start runsvdir"
-  end
-  
   service "chef-solo" do
     action :nothing
   end
