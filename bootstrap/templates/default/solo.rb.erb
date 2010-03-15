@@ -12,14 +12,14 @@ if chef_config.kind_of?(Array)
 end
 
 log_level        :info
-log_location     <%= @client_log %>
+log_location     <%= @solo_log %>
 node_name        o[:ec2][:instance_id]
 
 if chef_config.has_key?("attributes")
-  File.open("/etc/chef/client-config.json", "w") do |f|
+  File.open("/etc/chef/solo-config.json", "w") do |f|
     f.print(JSON.pretty_generate(chef_config["attributes"]))
   end
-  json_attribs "/etc/chef/client-config.json"
+  json_attribs "/etc/chef/solo-config.json"
 end
 
 recipe_url          chef_config['recipe_url']
