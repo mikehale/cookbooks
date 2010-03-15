@@ -44,12 +44,25 @@ when "init"
     mode "755"
   end
 
-  service "chef-solo" do
-    action :nothing
+  file "/etc/init.d/chef-solo" do
+    owner "root"
+    group "root"
+    mode "0755"
+    action :create
   end
 
-  Chef::Log.info("You specified service style 'init'.")
-  Chef::Log.info("'init' scripts available in #{node[:languages][:ruby][:gems_dir]}/gems/chef-#{node[:bootstrap][:chef][:solo_version]}/distro")
+  ruby_block "create init.d script" do
+    block do
+      chef_client_init = File.read("#{node[:languages][:ruby][:gems_dir]}/gems/chef-#{node[:bootstrap][:chef][:solo_version]}/distro/debian/etc/init.d/chef-client")
+      chef_client_init.gsub!("client", "solo")
+      File.open("/etc/init.d/chef-solo", 'w') {|f| f.write(chef_client_init) }
+    end
+  end
+
+  service "chef-solo" do
+    action :enable
+  end
+
 when "bsd"
   solo_log = node[:bootstrap][:chef][:solo_log]
   show_time  = "false"
