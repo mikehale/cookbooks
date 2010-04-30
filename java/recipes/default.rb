@@ -19,16 +19,16 @@
 
 java_pkg = value_for_platform(
   [ "ubuntu", "debian" ] => {
-    "default" => "sun-java6-jdk"
+    "default" => "openjdk-6-jdk"
   },
   [ "redhat", "centos", "fedora" ] => {
     "default" => "java-1.6.0-openjdk"
   },
-  "default" => "sun-java6-jdk"
+  "default" => "openjdk-6-jdk"
 )
 
 execute "update-java-alternatives" do
-  command "update-java-alternatives --jre-headless -s java-6-sun"
+  command "update-java-alternatives --jre-headless -s java-6-openjdk"
   only_if do platform?("ubuntu", "debian") end
   ignore_failure true
   returns 0
