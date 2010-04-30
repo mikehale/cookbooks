@@ -1,10 +1,11 @@
 {
-    "dependencies": {
+    "recipes": {
+      "apt::proxy": "Set up an APT proxy",
+      "apt::cacher": "Set up an APT cache"
     },
-    "replacing": {
+    "attributes": {
     },
-    "description": "Configures apt and apt services",
-    "groupings": {
+    "providing": {
     },
     "platforms": {
       "ubuntu": [
@@ -14,24 +15,23 @@
 
       ]
     },
+    "dependencies": {
+    },
+    "replacing": {
+    },
     "version": "0.8.0",
+    "name": "apt",
+    "groupings": {
+    },
+    "long_description": "",
     "recommendations": {
     },
-    "name": "apt",
+    "license": "Apache 2.0",
     "maintainer": "Opscode, Inc.",
-    "long_description": "",
-    "recipes": {
-      "apt::proxy": "Set up an APT proxy",
-      "apt::cacher": "Set up an APT cache"
-    },
     "suggestions": {
     },
     "maintainer_email": "cookbooks@opscode.com",
-    "attributes": {
-    },
     "conflicting": {
     },
-    "license": "Apache 2.0",
-    "providing": {
-    }
+    "description": "Configures apt and apt services"
   }

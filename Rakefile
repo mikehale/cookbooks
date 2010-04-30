@@ -74,3 +74,13 @@ task :build_cookbooks_package do
   end
   rm_rf tmp_dir
 end
+
+desc "Create metadata.json from metadata.rb"
+task :metadata_all do
+  sh %{knife cookbook metadata -a -o .}
+end
+
+desc "Create metadata.json from metadata.rb from a single cookbook"
+task :metadata, :cookbook do |t, args|
+  puts "knife cookbook metadata #{args.cookbook} -o #{File.dirname(__FILE__)}"
+end

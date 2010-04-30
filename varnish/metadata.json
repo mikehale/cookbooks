@@ -1,10 +1,9 @@
 {
-    "dependencies": {
+    "recipes": {
     },
-    "replacing": {
+    "attributes": {
     },
-    "description": "Instsalls and configures varnish",
-    "groupings": {
+    "providing": {
     },
     "platforms": {
       "ubuntu": [
@@ -14,22 +13,23 @@
 
       ]
     },
-    "version": "0.7.0",
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "version": "0.8.0",
+    "name": "varnish",
+    "groupings": {
+    },
+    "long_description": "",
     "recommendations": {
     },
-    "name": "varnish",
+    "license": "Apache 2.0",
     "maintainer": "Opscode, Inc.",
-    "long_description": "",
-    "recipes": {
-    },
     "suggestions": {
     },
     "maintainer_email": "cookbooks@opscode.com",
-    "attributes": {
-    },
     "conflicting": {
     },
-    "license": "Apache 2.0",
-    "providing": {
-    }
+    "description": "Instsalls and configures varnish"
   }

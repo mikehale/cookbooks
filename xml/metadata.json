@@ -1,10 +1,9 @@
 {
-    "dependencies": {
+    "recipes": {
     },
-    "replacing": {
+    "attributes": {
     },
-    "description": "Installs xml",
-    "groupings": {
+    "providing": {
     },
     "platforms": {
       "ubuntu": [
@@ -26,22 +25,23 @@
 
       ]
     },
+    "dependencies": {
+    },
+    "replacing": {
+    },
     "version": "0.1.0",
+    "name": "xml",
+    "groupings": {
+    },
+    "long_description": "",
     "recommendations": {
     },
-    "name": "xml",
+    "license": "Apache 2.0",
     "maintainer": "Opscode, Inc.",
-    "long_description": "",
-    "recipes": {
-    },
     "suggestions": {
     },
     "maintainer_email": "cookbooks@opscode.com",
-    "attributes": {
-    },
     "conflicting": {
     },
-    "license": "Apache 2.0",
-    "providing": {
-    }
+    "description": "Installs xml"
   }

@@ -1,13 +1,9 @@
 {
-    "dependencies": {
-      "erlang": [
-
-      ]
+    "recipes": {
     },
-    "replacing": {
+    "attributes": {
     },
-    "description": "Installs CouchDB package and starts service",
-    "groupings": {
+    "providing": {
     },
     "platforms": {
       "rhel": [
@@ -32,22 +28,26 @@
         ">= 5.0"
       ]
     },
-    "version": "0.9.0",
+    "dependencies": {
+      "erlang": [
+
+      ]
+    },
+    "replacing": {
+    },
+    "version": "0.11.0",
+    "name": "couchdb",
+    "groupings": {
+    },
+    "long_description": "Installs the CouchDB package if it is available from an package repository on\nthe node. If the package repository is not available, CouchDB needs to be \ninstalled via some other method, either a backported package, or compiled \ndirectly from source. CouchDB is available on Red Hat-based systems through\nthe EPEL Yum Repository.\n",
     "recommendations": {
     },
-    "name": "couchdb",
+    "license": "Apache 2.0",
     "maintainer": "Opscode, Inc.",
-    "long_description": "Installs the CouchDB package if it is available from an package repository on\nthe node. If the package repository is not available, CouchDB needs to be \ninstalled via some other method, either a backported package, or compiled \ndirectly from source. CouchDB is available on Red Hat-based systems through\nthe EPEL Yum Repository.\n",
-    "recipes": {
-    },
     "suggestions": {
     },
     "maintainer_email": "cookbooks@opscode.com",
-    "attributes": {
-    },
     "conflicting": {
     },
-    "license": "Apache 2.0",
-    "providing": {
-    }
+    "description": "Installs CouchDB package and starts service"
   }

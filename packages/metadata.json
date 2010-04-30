@@ -1,30 +1,6 @@
 {
-    "dependencies": {
-    },
-    "replacing": {
-    },
-    "description": "Helper library to determine whether distribution-only packages are installed",
-    "groupings": {
-    },
-    "platforms": {
-      "centos": [
-
-      ],
-      "redhat": [
-
-      ]
-    },
-    "version": "0.8.0",
-    "recommendations": {
-    },
-    "name": "packages",
-    "maintainer": "Opscode, Inc.",
-    "long_description": "",
     "recipes": {
     },
-    "suggestions": {
-    },
-    "maintainer_email": "cookbooks@opscode.com",
     "attributes": {
       "packages": {
         "calculated": false,
@@ -40,8 +16,8 @@
         "required": "optional"
       },
       "packages/dist_only": {
-        "calculated": false,
         "default": "false",
+        "calculated": false,
         "type": "string",
         "choice": [
 
@@ -54,9 +30,33 @@
         "required": "optional"
       }
     },
-    "conflicting": {
+    "providing": {
+    },
+    "platforms": {
+      "centos": [
+
+      ],
+      "redhat": [
+
+      ]
+    },
+    "dependencies": {
+    },
+    "replacing": {
+    },
+    "version": "0.9.0",
+    "name": "packages",
+    "groupings": {
+    },
+    "long_description": "",
+    "recommendations": {
     },
     "license": "Apache 2.0",
-    "providing": {
-    }
+    "maintainer": "Opscode, Inc.",
+    "suggestions": {
+    },
+    "maintainer_email": "cookbooks@opscode.com",
+    "conflicting": {
+    },
+    "description": "Helper library to determine whether distribution-only packages are installed"
   }
