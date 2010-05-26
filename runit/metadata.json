@@ -1,5 +1,5 @@
 {
-    "recipes": {
+    "replacing": {
     },
     "attributes": {
       "runit/service_dir": {
@@ -58,8 +58,6 @@
         "required": "optional"
       }
     },
-    "providing": {
-    },
     "platforms": {
       "ubuntu": [
 
@@ -68,23 +66,25 @@
 
       ]
     },
-    "dependencies": {
-    },
-    "replacing": {
-    },
-    "version": "0.10.0",
-    "name": "runit",
     "groupings": {
+    },
+    "dependencies": {
     },
     "long_description": "",
     "recommendations": {
     },
-    "license": "Apache 2.0",
+    "version": "0.11.1",
     "maintainer": "Opscode, Inc.",
+    "name": "runit",
     "suggestions": {
     },
+    "recipes": {
+    },
+    "license": "Apache 2.0",
     "maintainer_email": "cookbooks@opscode.com",
     "conflicting": {
+    },
+    "providing": {
     },
     "description": "Installs runit and provides runit_service definition"
   }

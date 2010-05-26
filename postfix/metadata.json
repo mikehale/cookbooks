@@ -1,7 +1,5 @@
 {
-    "recipes": {
-      "postfix::sasl_auth": "Set up postfix to auth to a server with sasl"
-    },
+    "maintainer": "Opscode, Inc.",
     "attributes": {
       "postfix/smtp_sasl_password_maps": {
         "default": "hash:/etc/postfix/sasl_passwd",
@@ -12,10 +10,10 @@
         ],
         "description": "hashmap of SASL passwords",
         "display_name": "Postfix SMTP SASL Password Maps",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/smtp_sasl_security_options": {
         "default": "noanonymous",
@@ -26,10 +24,10 @@
         ],
         "description": "Sets the value of smtp_sasl_security_options in main.cf",
         "display_name": "Postfix SMTP SASL Security Options",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/mail_relay_networks": {
         "default": "127.0.0.0/8",
@@ -40,10 +38,10 @@
         ],
         "description": "Sets the mynetworks value in main.cf",
         "display_name": "Postfix Mail Relay Networks",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/myorigin": {
         "default": "$myhostname",
@@ -54,10 +52,10 @@
         ],
         "description": "Sets the myorigin value in main.cf",
         "display_name": "Postfix Myorigin",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/myhostname": {
         "default": "fqdn",
@@ -68,10 +66,10 @@
         ],
         "description": "Sets the myhostname value in main.cf",
         "display_name": "Postfix Myhostname",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/smtp_sasl_user_name": {
         "default": "",
@@ -82,10 +80,10 @@
         ],
         "description": "User to auth SMTP via SASL",
         "display_name": "Postfix SMTP SASL Username",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/smtp_tls_cafile": {
         "default": "/etc/postfix/cacert.pem",
@@ -96,10 +94,10 @@
         ],
         "description": "CA certificate file for SMTP over TLS",
         "display_name": "Postfix SMTP TLS CA File",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/smtp_sasl_passwd": {
         "default": "",
@@ -110,10 +108,10 @@
         ],
         "description": "Password for smtp_sasl_user_name",
         "display_name": "Postfix SMTP SASL Password",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/mail_type": {
         "default": "client",
@@ -124,10 +122,10 @@
         ],
         "description": "Is this node a client or server?",
         "display_name": "Postfix Mail Type",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/smtp_use_tls": {
         "default": "yes",
@@ -138,10 +136,10 @@
         ],
         "description": "Whether SMTP SASL Auth should use TLS encryption",
         "display_name": "Postfix SMTP Use TLS?",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/relayhost": {
         "default": "",
@@ -152,10 +150,10 @@
         ],
         "description": "Sets the relayhost value in main.cf",
         "display_name": "Postfix Relayhost",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/smtp_sasl_auth_enable": {
         "default": "no",
@@ -166,10 +164,10 @@
         ],
         "description": "Enable SMTP SASL Authentication",
         "display_name": "Postfix SMTP SASL Auth Enable",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix/mydomain": {
         "default": "domain",
@@ -180,10 +178,10 @@
         ],
         "description": "Sets the mydomain value in main.cf",
         "display_name": "Postfix Mydomain",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "postfix": {
         "calculated": false,
@@ -193,13 +191,13 @@
         ],
         "description": "Hash of Postfix attributes",
         "display_name": "Postfix",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       }
     },
-    "providing": {
+    "suggestions": {
     },
     "platforms": {
       "ubuntu": [
@@ -211,21 +209,23 @@
     },
     "dependencies": {
     },
-    "replacing": {
+    "maintainer_email": "cookbooks@opscode.com",
+    "conflicting": {
     },
     "version": "0.8.0",
     "name": "postfix",
+    "recipes": {
+      "postfix::sasl_auth": "Set up postfix to auth to a server with sasl"
+    },
+    "providing": {
+    },
+    "license": "Apache 2.0",
+    "replacing": {
+    },
     "groupings": {
     },
     "long_description": "",
     "recommendations": {
-    },
-    "license": "Apache 2.0",
-    "maintainer": "Opscode, Inc.",
-    "suggestions": {
-    },
-    "maintainer_email": "cookbooks@opscode.com",
-    "conflicting": {
     },
     "description": "Installs and configures postfix for client or outbound relayhost, or to do SASL auth"
   }

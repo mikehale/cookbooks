@@ -40,6 +40,12 @@ when "debian","ubuntu"
     mode "0600"
     notifies :run, resources(:execute => "preseed mysql-server"), :immediately
   end
+  template "/etc/mysql/debian.cnf" do
+    source "debian.cnf.erb"
+    owner "root"
+    group "root"
+    mode "0600"
+  end
 end
 
 package "mysql-server" do
@@ -48,9 +54,13 @@ end
 
 service "mysql" do
   service_name value_for_platform([ "centos", "redhat", "suse" ] => {"default" => "mysqld"}, "default" => "mysql")
-
+  if (platform?("ubuntu") && node.platform_version.to_f >= 10.04)
+    restart_command "restart mysql"
+    stop_command "stop mysql"
+    start_command "start mysql"
+  end
   supports :status => true, :restart => true, :reload => true
-  action :enable
+  action :nothing
 end
 
 case node[:platform]
@@ -93,6 +103,15 @@ rescue
     owner "root"
     group "root"
     mode "0600"
+    action :create
+  end
+end
+
+unless Chef::Config[:solo]
+  ruby_block "save node data" do
+    block do
+      node.save
+    end
     action :create
   end
 end

@@ -1,6 +1,5 @@
 {
-    "recipes": {
-    },
+    "maintainer": "Opscode, Inc.",
     "attributes": {
       "ntp/servers": {
         "default": [
@@ -14,10 +13,10 @@
         ],
         "description": "Array of servers we should talk to",
         "display_name": "NTP Servers",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "ntp/is_server": {
         "default": "false",
@@ -28,10 +27,10 @@
         ],
         "description": "Set to true if this is an NTP server",
         "display_name": "NTP Is Server?",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "ntp/service": {
         "default": "ntp",
@@ -42,10 +41,10 @@
         ],
         "description": "Name of the NTP service",
         "display_name": "NTP Service",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "ntp": {
         "calculated": false,
@@ -55,13 +54,13 @@
         ],
         "description": "Hash of NTP attributes",
         "display_name": "NTP",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       }
     },
-    "providing": {
+    "suggestions": {
     },
     "platforms": {
       "ubuntu": [
@@ -82,21 +81,22 @@
     },
     "dependencies": {
     },
-    "replacing": {
+    "maintainer_email": "cookbooks@opscode.com",
+    "conflicting": {
     },
     "version": "0.8.0",
     "name": "ntp",
+    "recipes": {
+    },
+    "providing": {
+    },
+    "license": "Apache 2.0",
+    "replacing": {
+    },
     "groupings": {
     },
     "long_description": "",
     "recommendations": {
-    },
-    "license": "Apache 2.0",
-    "maintainer": "Opscode, Inc.",
-    "suggestions": {
-    },
-    "maintainer_email": "cookbooks@opscode.com",
-    "conflicting": {
     },
     "description": "Installs and configures ntp as a client or server"
   }

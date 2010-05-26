@@ -1,6 +1,5 @@
 {
-    "recipes": {
-    },
+    "maintainer": "Opscode, Inc.",
     "attributes": {
       "resolver/nameservers": {
         "default": [
@@ -13,10 +12,10 @@
         ],
         "description": "Default nameservers",
         "display_name": "Resolver Nameservers",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "resolver": {
         "calculated": false,
@@ -26,10 +25,10 @@
         ],
         "description": "Hash of Resolver attributes",
         "display_name": "Resolver",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       },
       "resolver/search": {
         "default": "domain",
@@ -40,13 +39,13 @@
         ],
         "description": "Default domain to search",
         "display_name": "Resolver Search",
+        "required": "optional",
         "recipes": [
 
-        ],
-        "required": "optional"
+        ]
       }
     },
-    "providing": {
+    "suggestions": {
     },
     "platforms": {
       "freebsd": [
@@ -76,21 +75,22 @@
     },
     "dependencies": {
     },
-    "replacing": {
+    "maintainer_email": "cookbooks@opscode.com",
+    "conflicting": {
     },
     "version": "0.8.0",
     "name": "resolver",
+    "recipes": {
+    },
+    "providing": {
+    },
+    "license": "Apache 2.0",
+    "replacing": {
+    },
     "groupings": {
     },
     "long_description": "",
     "recommendations": {
-    },
-    "license": "Apache 2.0",
-    "maintainer": "Opscode, Inc.",
-    "suggestions": {
-    },
-    "maintainer_email": "cookbooks@opscode.com",
-    "conflicting": {
     },
     "description": "Configures /etc/resolv.conf"
   }
