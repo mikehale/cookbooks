@@ -91,8 +91,10 @@ define :runit_service, :directory => nil, :only_if => false, :finish_script => f
     to node[:runit][:sv_bin]
   end
 
-  link "#{node[:runit][:service_dir]}/#{params[:name]}" do 
-    to "#{sv_dir_name}"
+  unless node[:platform] == "gentoo"
+    link "#{node[:runit][:service_dir]}/#{params[:name]}" do
+      to "#{sv_dir_name}"
+    end
   end
 
   ruby_block "supervise_#{params[:name]}_sleep" do
